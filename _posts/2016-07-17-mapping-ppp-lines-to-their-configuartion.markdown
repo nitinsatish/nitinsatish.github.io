@@ -14,7 +14,7 @@ The PID file ```/var/run/ppp-ppp”CURRENT_NUM”.pid``` where CURRENT_NUM is th
 
 Also wrote a script to map current interface number to original configuration showing the interfaces that are down.
 
-#####PPP Mapping Script
+##### PPP Mapping Script
 
 ```bash
 #!/bin/bash
@@ -36,4 +36,5 @@ done
 References :
 
 [PppConnectionNaming](https://utcc.utoronto.ca/~cks/space/blog/linux/PppConnectionNaming)
+
 [How force pppd tu use same ppp interface name](https://www.mail-archive.com/linux-ppp@vger.rutgers.edu/msg03064.html)
