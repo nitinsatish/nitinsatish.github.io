@@ -1,0 +1,8 @@
+excerpt_separator: ""
+pygments: true
+markdown: kramdown
+url: http://nitinsatish.github.io
+title: slashroot
+tagline: Log of a Syadmin
+description: Log of a Syadmin
+paginate: 5
