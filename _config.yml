@@ -3,6 +3,6 @@ pygments: true
 markdown: kramdown
 url: http://nitinsatish.github.io
 title: slashroot
-tagline: Log of a Syadmin
-description: Log of a Syadmin
+tagline:  The log of a Syadmin
+description:  The log of a Syadmin
 paginate: 5
