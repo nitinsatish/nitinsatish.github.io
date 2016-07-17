@@ -34,5 +34,5 @@ done
 ```
 
 References :
-[https://utcc.utoronto.ca/~cks/space/blog/linux/PppConnectionNaming](https://utcc.utoronto.ca/~cks/space/blog/linux/PppConnectionNaming)
-[ https://www.mail-archive.com/linux-ppp@vger.rutgers.edu/msg03064.html ](https://www.mail-archive.com/linux-ppp@vger.rutgers.edu/msg03064.html)
+[PppConnectionNaming](https://utcc.utoronto.ca/~cks/space/blog/linux/PppConnectionNaming)
+[ How force pppd tu use same ppp interface name](https://www.mail-archive.com/linux-ppp@vger.rutgers.edu/msg03064.html)
