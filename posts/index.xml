@@ -1,1 +1,29 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Nitin's Pages</title><link>https://nitinsatish.github.io/posts/</link><description>Recent content in Posts on Nitin's Pages</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 28 Jul 2022 16:39:51 +0530</lastBuildDate><atom:link href="https://nitinsatish.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>My First Post</title><link>https://nitinsatish.github.io/posts/my-first-post/</link><pubDate>Thu, 28 Jul 2022 16:39:51 +0530</pubDate><guid>https://nitinsatish.github.io/posts/my-first-post/</guid><description/><content/></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Nitin's Pages</title><link>https://nitinsatish.github.io/posts/</link><description>Recent content in Posts on Nitin's Pages</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 28 Jul 2022 17:49:41 +0530</lastBuildDate><atom:link href="https://nitinsatish.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux Process Lifecycle</title><link>https://nitinsatish.github.io/posts/linux-process-lifecycle/</link><pubDate>Thu, 28 Jul 2022 17:49:41 +0530</pubDate><guid>https://nitinsatish.github.io/posts/linux-process-lifecycle/</guid><description>These are notes taken while learning Linux internals. My main source is The Linux Programming Interface.
+Overview The four major system calls involved in the lifecycle of a process are the following.
+fork - Create a replica of parent process exec - Replace the program with intended new program wait - Monitor the status of child process exit - Terminate the process There are 2 other system calls which might be used as well</description><content>&lt;p>These are notes taken while learning Linux internals. My main source is &lt;a href="https://man7.org/tlpi/">The Linux Programming Interface&lt;/a>.&lt;/p>
+&lt;h2 id="overview">Overview&lt;/h2>
+&lt;p>The four major system calls involved in the lifecycle of a process are the following.&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>fork&lt;/strong> - Create a replica of parent process&lt;/li>
+&lt;li>&lt;strong>exec&lt;/strong> - Replace the program with intended new program&lt;/li>
+&lt;li>&lt;strong>wait&lt;/strong> - Monitor the status of child process&lt;/li>
+&lt;li>&lt;strong>exit&lt;/strong> - Terminate the process&lt;/li>
+&lt;/ol>
+&lt;p>There are 2 other system calls which might be used as well&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>system&lt;/strong> - Allows executing of arbitrary shell commands&lt;/li>
+&lt;li>&lt;strong>clone&lt;/strong> - Used in Linux for creating threads&lt;/li>
+&lt;/ul>
+&lt;img src="https://nitinsatish.github.io/img/process_life.png" alt="Hello Friend" class="center" style="border-radius: 8px;" />
+&lt;h3 id="1-fork">1. Fork&lt;/h3>
+&lt;p>This system call creates a child process which is a replica of parent process. The data, heap and stack memory segments are copied to the child. The text segment of memory is made read-only shared between parent and child. The file descriptors of parent are duplicated in child. The stdio buffers of parent are also inherited by child.&lt;br>
+After &lt;code>fork&lt;/code> depending on system it can be either parent or child that is scheduled for CPU time next.&lt;/p>
+&lt;p>&lt;code>child_pid = fork()&lt;/code>&lt;/p>
+&lt;p>In modern Linux, the virtual memory of parent does not at once get copied to child. This is because in many cases the child calls &lt;code>exec&lt;/code> just after creation which clears the memory. So instead copying memory kernel uses copy-on-write (COW) method. The kernel shares the memory between parent and child and on receiving any call to modify the memory, creates a copy of virtual memory to the calling process.&lt;/p>
+&lt;p>There are pros and cons for scheduling parent or child at once after fork. Child getting scheduled is helpful if it calls &lt;code>exec&lt;/code> replacing the memory. In this case parents&amp;rsquo; memory stays intact and does not require re-allocation. The advantage of running parent process is that the memory pages required by the process are probably already loaded and it enables faster execution.
+In Linux, the parent process is generally scheduled to run after fork. This kernel setting can changed using sysconfig or /proc filesystem.&lt;/p>
+&lt;p>The file descriptors are copied to child and so child shares the file description table. The file_offset which points the location of file last access set by &lt;code>read&lt;/code>, &lt;code>write&lt;/code>, &lt;code>lseek&lt;/code> system calls. The file_offset being shared prevents parent and child from over-writing each other. But it might still intermingle the writes. To avoid intermingling of writes &lt;code>wait&lt;/code> system call can be used, so that parent process is blocked till child is running.&lt;/p>
+&lt;h4 id="vfork">vfork&lt;/h4>
+&lt;p>&lt;code>vfork&lt;/code> is variant of fork system call that is more efficient if the child is supposed to &lt;code>exec&lt;/code> after fork. This does not copy parent&amp;rsquo;s memory and blocks the parent until the child calls &lt;code>exec&lt;/code>.&lt;/p>
+&lt;h3 id="2-exec">2. Exec&lt;/h3>
+&lt;p>There isn&amp;rsquo;t system call named exec, instead &lt;code>execve&lt;/code> and list of exec variants are used. This causes the memory of the child inherited parent to be cleared and the new program passed as argument to exec function to be loaded.&lt;/p></content></item><item><title>My First Post</title><link>https://nitinsatish.github.io/posts/my-first-post/</link><pubDate>Thu, 28 Jul 2022 16:39:51 +0530</pubDate><guid>https://nitinsatish.github.io/posts/my-first-post/</guid><description/><content/></item></channel></rss>
